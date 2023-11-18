@@ -1,365 +1,368 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Virtual Queue</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <div id="header">Virtual Queue</div>
-        <div id="main"></div>
-        <script>
-            // Password check
 
-            const newQueueName = 'New Queue';
-            let thisQueueName = '';
-            const queues = [
-                { 'name': 'RedHat',
-                  'data': [ {
-                    'name': 'Matthew Coffey',
-                    'number': '555-123-4567'
-                  }, {
-                    'name': 'Chip Thrasher',
-                    'number': '555-123-4561'
-                  }, {
-                    'name': 'Ashley John',
-                    'number': '555-123-4562'
-                  } ] }, 
-                { 'name': 'NC State Career Development Center',
-                  'data': [ ] }, 
-                { 'name': 'NC State Engineer Your Experience',
-                  'data': [ ] }, 
-                { 'name': 'GE Vernova',
-                  'data': [  ] }, 
-                { 'name': 'AMD',
-                  'data': [  ] }, 
-                { 'name': 'NC State Career Development 2',
-                  'data': [  ] }
-            ];
-            
-            //
-            // GUI/DOM functions.
-            //
+<head>
+    <title>Virtual Queue</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css">
+</head>
 
-            // Populate #main with the menu screen.
-            function showMenu() {
-                // Update page title
-                const header = document.getElementById('header');
-                header.innerHTML = 'Virtual Queue';
-                document.title = 'Virtual Queue';
-                
-                // Clear #main
-                const main = document.getElementById('main');
-                main.innerHTML = '';
-                
-                let content = '<div class="description">Choose a virtual queue.</div>';
-                content += '<div class="menu" id="queues">';
+<body>
+    <div id="header">Virtual Queue</div>
+    <div id="main"></div>
+    <script>
+        // Password check
 
-                for(let queue of queues) {
-                    // console.log('Queue name: ' + queue.name);
-                    
-                    content += '<button class="queue">' + queue.name + '</button>';
-                }
+        const newQueueName = 'New Queue';
+        let thisQueueName = '';
+        var queues = [];
 
-                content += '</div>'; // End first menu
-                content += '<div class="menu"><button class="queue opposite">' + newQueueName + '</button></div>'; // Second menu
+        //
+        // GUI/DOM functions.
+        //
 
-                main.innerHTML = content;
+        // Populate #main with the menu screen.
+        function showMenu() {
+            // Update page title
+            const header = document.getElementById('header');
+            header.innerHTML = 'Virtual Queue';
+            document.title = 'Virtual Queue';
 
-                // Add event listeners
-                addMenuListeners();
+            // Clear #main
+            const main = document.getElementById('main');
+            main.innerHTML = '';
+
+            let content = '<div class="description">Choose a virtual queue.</div>';
+            content += '<div class="menu" id="queues">';
+
+            for (let queue of queues) {
+                // console.log('Queue name: ' + queue.name);
+
+                content += '<button class="queue">' + queue.name + '</button>';
             }
 
-            // Populate #main with a specified queue's view.
-            function showQueue(queue) {
-                if(queue == null || queue.name == '') {
-                    throw("Trying to populate null/empty queue");
-                }
+            content += '</div>'; // End first menu
+            content += '<div class="menu"><button class="queue opposite">' + newQueueName + '</button></div>'; // Second menu
 
-                thisQueueName = queue.name;
+            main.innerHTML = content;
 
-                const header = document.getElementById('header');
-                header.innerHTML = queue.name + '\'s Virtual Queue';
-                document.title = queue.name + '\'s Virtual Queue';
+            // Add event listeners
+            addMenuListeners();
+        }
 
-                // Clear #main
-                const main = document.getElementById('main');
-                main.innerHTML = '';
-
-                // Form (name, phone number, add button, pull button)
-                let content = '';
-
-                content += '<div class="form"><input type="text" id="name" placeholder="Name"><input type="tel" id="number" placeholder="Phone number">'
-                content += '<button id="add">Add to Queue</button><button id="pull">Pull from Queue</button><button id="delete" class="opposite">Delete Queue</button></div>';
-
-                // Next in line, empty queue div
-                content += '<div class="description">Next in line:</div>';
-                content += '<div id="queue"></div>';
-                
-                // Push out current DOM content
-                main.innerHTML = content;
-                    
-                // Populate queue with the selected queue's data            
-                populateQueue(queue.data);
+        // Populate #main with a specified queue's view.
+        function showQueue(queue) {
+            if (queue == null || queue.name == '') {
+                throw ("Trying to populate null/empty queue");
             }
 
-            // Populate the queue list with data. 
-            // Queue = array of {name, number} objects
-            function populateQueue(queue) {
-                const queueElement = document.getElementById('queue');
-                let content = '';
+            thisQueueName = queue.name;
 
-                for(i = 0; i < queue.length; i++) {
-                    let thisName = queue[i].name;
-                    let thisNumber = queue[i].number;
-                    
-                    console.log(thisName, thisNumber);
+            const header = document.getElementById('header');
+            header.innerHTML = queue.name + '\'s Virtual Queue';
+            document.title = queue.name + '\'s Virtual Queue';
 
-                    content += `<div class="item" data-name="${thisName}" data-number="${thisNumber}">`;
-                    content += `<span class="name">${thisName}</span>`;
-                    content += `<span class="number">${thisNumber}</span>`;
-                    content += '<span class="action">Delete</span></div>';
-                }
+            // Clear #main
+            const main = document.getElementById('main');
+            main.innerHTML = '';
 
-                queueElement.innerHTML = content;
+            // Form (name, phone number, add button, pull button)
+            let content = '';
 
-                addQueueListeners();
+            content += '<div class="form"><input type="text" id="name" placeholder="Name"><input type="tel" id="number" placeholder="Phone number">'
+            content += '<button id="add">Add to Queue</button><button id="pull">Pull from Queue</button><button id="delete" class="opposite">Delete Queue</button></div>';
+
+            // Next in line, empty queue div
+            content += '<div class="description">Next in line:</div>';
+            content += '<div id="queue"></div>';
+
+            // Push out current DOM content
+            main.innerHTML = content;
+
+            // Populate queue with the selected queue's data            
+            populateQueue(queue.data);
+        }
+
+        // Populate the queue list with data. 
+        // Queue = array of {name, number} objects
+        function populateQueue(queue) {
+            const queueElement = document.getElementById('queue');
+            let content = '';
+
+            for (i = 0; i < queue.length; i++) {
+                let thisName = queue[i].name;
+                let thisNumber = queue[i].number;
+
+                console.log(thisName, thisNumber);
+
+                content += `<div class="item" data-name="${thisName}" data-number="${thisNumber}">`;
+                content += `<span class="name">${thisName}</span>`;
+                content += `<span class="number">${thisNumber}</span>`;
+                content += '<span class="action">Delete</span></div>';
             }
-        
-            //
-            // Queue manipulation functions. Interacts with data, minimal data validation.
-            //
-        
-            // Remove an item from the queue.
-            // Queue = the name of the queue to check
-            // Name = the name to remove, optional
-            // Returns the name of the person returned.
-            function removeFromQueue(queueName, name) {
-                // If no queue, throw an error
-                if(queueName == null || !getQueueFromName(queueName)) {
-                    throw('Queue is null or not Object, cannot remove ' + name);
-                }
-                
-                const queueData = getQueueFromName(queueName).data;
-                // If no name, remove the top item of the queue
-                if(name == null || name == '') {
-                    queueData.splice(0, 1);
-                } else {
-                    for(let i = 0; i < queueData.length; i++) {
-                        if(queueData[i].name == name) {
-                            console.log('Found the one to remove');
-                            queueData.splice(i, 1);
-                        }
+
+            queueElement.innerHTML = content;
+
+            addQueueListeners();
+        }
+
+        //
+        // Queue manipulation functions. Interacts with data, minimal data validation.
+        //
+
+        // Remove an item from the queue.
+        // Queue = the name of the queue to check
+        // Name = the name to remove, optional
+        // Returns the name of the person returned.
+        function removeFromQueue(queueName, name) {
+            // If no queue, throw an error
+            if (queueName == null || !getQueueFromName(queueName)) {
+                throw ('Queue is null or not Object, cannot remove ' + name);
+            }
+
+            const queueData = getQueueFromName(queueName).data;
+            // If no name, remove the top item of the queue
+            if (name == null || name == '') {
+                queueData.splice(0, 1);
+            } else {
+                for (let i = 0; i < queueData.length; i++) {
+                    if (queueData[i].name == name) {
+                        console.log('Found the one to remove');
+                        queueData.splice(i, 1);
                     }
                 }
             }
+        }
 
-            // Add an item to the queue.
-            // Queue = the name of the queue to add to
-            // Name = the name to add to queue
-            // Number = the phone number to add to queue
-            function addToQueue(queueName, name, number) {
-                const queueData = getQueueFromName(queueName).data;
-                queueData.push({ 'name': name, 'number': number });
-            }
+        // Add an item to the queue.
+        // Queue = the name of the queue to add to
+        // Name = the name to add to queue
+        // Number = the phone number to add to queue
+        function addToQueue(queueName, name, number) {
+            const queueData = getQueueFromName(queueName).data;
+            queueData.push({ 'name': name, 'number': number });
+        }
 
-            // Add a new queue to the list.
-            // Must check for duplicates and "New Queue".
-            function newQueue() {
-                let name = '', validName = false;
-                while(name != null && validName == false) {
-                    name = prompt('Name for the new queue:');
-                    validName = true;
+        // Add a new queue to the list.
+        // Must check for duplicates and "New Queue".
+        function newQueue() {
+            let name = '', validName = false;
+            while (name != null && validName == false) {
+                name = prompt('Name for the new queue:');
+                validName = true;
 
-                    if(name.trim() == '') {
-                        validName = false;
-                        continue;
-                    }
-                    if(getQueueFromName(name)) {
-                        validName = false;
-                    }
+                if (name.trim() == '') {
+                    validName = false;
+                    continue;
                 }
-                queues.push({ 'name': name, 'data': [ ] });
-                showMenu();
-            }
-
-            // Delete a queue with the specified name.
-            function deleteQueue(name) {
-                // Can't use getQueueFromName, we need an index.
-                for(let i = 0; i < queues.length; i++) {
-                    if(queues[i].name.trim().toLowerCase() == name.trim().toLowerCase()) {
-                        console.log('Matching queue name detected: ' + name);
-                        queues.splice(i, 1);
-                        break;
-                    }
+                if (getQueueFromName(name)) {
+                    validName = false;
                 }
             }
+            queues.push({ 'name': name, 'data': [] });
+            showMenu();
+        }
 
-            // Helper function to get a queue object from its name.
-            function getQueueFromName(name) {
-                if(name == null || name == '') {
-                    throw('Cannot getQueueFromName because name is null or empty');
+        // Delete a queue with the specified name.
+        function deleteQueue(name) {
+            // Can't use getQueueFromName, we need an index.
+            for (let i = 0; i < queues.length; i++) {
+                if (queues[i].name.trim().toLowerCase() == name.trim().toLowerCase()) {
+                    console.log('Matching queue name detected: ' + name);
+                    queues.splice(i, 1);
+                    break;
                 }
-                for(let queue of queues) {
-                    if(queue.name.trim().toLowerCase() == name.trim().toLowerCase()) {
-                        return queue;
-                    }
-                }
-                return null;
             }
-            
-            //
-            // Main function & event listener setup functions. DOne for each view (menu, queue).
-            //
+        }
 
-            // Add event listeners to queue
-            document.addEventListener('DOMContentLoaded', function() {
-                showMenu();
+        // Helper function to get a queue object from its name.
+        function getQueueFromName(name) {
+            if (name == null || name == '') {
+                throw ('Cannot getQueueFromName because name is null or empty');
+            }
+            for (let queue of queues) {
+                if (queue.name.trim().toLowerCase() == name.trim().toLowerCase()) {
+                    return queue;
+                }
+            }
+            return null;
+        }
 
-                const header = document.getElementById('header');
-                header.addEventListener('click', function() {
+        //
+        // Main function & event listener setup functions. DOne for each view (menu, queue).
+        //
+
+        // Add event listeners to queue
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('/data.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Handle the data
+                    console.log(data);
+                    queues = data;
+                    console.log(queues);
+
                     showMenu();
+
+                    const header = document.getElementById('header');
+                    header.addEventListener('click', function () {
+                        showMenu();
+                    });
+                })
+                .catch(error => {
+                    // Handle errors
+                    console.error('Error during fetch:', error);
+                });
+        });
+
+
+        // Add event listeners, after using showMenu().
+        function addMenuListeners() {
+            // First remove listeners
+            const header = document.getElementById('header');
+            const main = document.getElementById('main');
+            header.outerHTML = header.outerHTML;
+            main.outerHTML = main.outerHTML;
+
+            // console.log('Adding menu listeners');
+            // Menu: queue buttons & New Queue button
+            const queueElements = document.querySelectorAll('.queue');
+            queueElements.forEach(function (element) {
+                // Handle queue selection with the given queue name
+                let name = element.innerHTML;
+                element.addEventListener('click', function () {
+                    handleQueueSelection(name);
                 });
             });
-            
+        }
 
-            // Add event listeners, after using showMenu().
-            function addMenuListeners() {
-                // First remove listeners
-                const header = document.getElementById('header');
-                const main = document.getElementById('main');
-                header.outerHTML = header.outerHTML;
-                main.outerHTML = main.outerHTML;
+        // Add event listeners, after using showQueue().
+        function addQueueListeners() {
+            // First remove listeners
+            const main = document.getElementById('main');
+            main.outerHTML = main.outerHTML;
 
-                // console.log('Adding menu listeners');
-                // Menu: queue buttons & New Queue button
-                const queueElements = document.querySelectorAll('.queue');
-                queueElements.forEach(function(element) {
-                    // Handle queue selection with the given queue name
-                    let name = element.innerHTML;
-                    element.addEventListener('click', function() {
-                        handleQueueSelection(name);
-                    });
+            // Specific queue view: delete buttons, DeleteQueue, Add & Pull buttons
+            const deleteButton = document.querySelector('#delete');
+            deleteButton.addEventListener('click', function () {
+                // Find the name of the queue
+                handleDeleteQueue(thisQueueName);
+            });
+
+            const add = document.querySelector('#add');
+            add.addEventListener('click', function () {
+                // Find the name of the queue
+                const name = document.getElementById('name').value;
+                const number = document.getElementById('number').value;
+
+                handleAddToQueue(thisQueueName, name, number);
+            });
+
+            const pull = document.querySelector('#pull');
+            pull.addEventListener('click', function () {
+                // Find the name of the queue
+                handlePullFromQueue(thisQueueName);
+            });
+
+            const deleteItemButtons = document.querySelectorAll('.action');
+            deleteItemButtons.forEach(function (element) {
+                // Handle queue selection with the given queue name
+                let name = element.parentElement.getAttribute('data-name');
+                element.addEventListener('click', function () {
+                    handleDeleteItem(name);
                 });
+            });
+        }
+
+        //
+        // Specific handler functions. Interact with GUI and provide data validation.
+        //
+
+        // Handle queue click from menu. "New Queue" (newQueueName) is an option
+        function handleQueueSelection(name) {
+            console.log('Click detected on ' + name + ', running handleQueueSelection');
+            if (name == null || name == '') {
+                throw ('handleQueueSelection called with null/empty name');
             }
-
-            // Add event listeners, after using showQueue().
-            function addQueueListeners() {
-                // First remove listeners
-                const header = document.getElementById('header');
-                const main = document.getElementById('main');
-                header.outerHTML = header.outerHTML;
-                main.outerHTML = main.outerHTML;
-                
-                // Specific queue view: delete buttons, DeleteQueue, Add & Pull buttons
-                const deleteButton = document.querySelector('#delete');
-                deleteButton.addEventListener('click', function() {
-                    // Find the name of the queue
-                    handleDeleteQueue(thisQueueName);
-                });
-
-                const add = document.querySelector('#add');
-                add.addEventListener('click', function() {
-                    // Find the name of the queue
-                    const name = document.getElementById('name').value;
-                    const number = document.getElementById('number').value;
-
-                    handleAddToQueue(thisQueueName, name, number);
-                });
-
-                const pull = document.querySelector('#pull');
-                pull.addEventListener('click', function() {
-                    // Find the name of the queue
-                    handlePullFromQueue(thisQueueName);
-                });
-
-                const deleteItemButtons = document.querySelectorAll('.action');
-                deleteItemButtons.forEach(function(element) {
-                    // Handle queue selection with the given queue name
-                    let name = element.parentElement.getAttribute('data-name');
-                    element.addEventListener('click', function() {
-                        handleDeleteItem(name);
-                    });
-                });
+            if (name == newQueueName) {
+                newQueue();
             }
-
-            //
-            // Specific handler functions. Interact with GUI and provide data validation.
-            //
-
-            // Handle queue click from menu. "New Queue" (newQueueName) is an option
-            function handleQueueSelection(name) {
-                console.log('Click detected on ' + name + ', running handleQueueSelection');
-                if(name == null || name == '') {
-                    throw('handleQueueSelection called with null/empty name');
-                }
-                if(name == newQueueName) {
-                    newQueue();
-                }
-                if(getQueueFromName(name)) {
-                    showQueue(getQueueFromName(name));
-                }
+            if (getQueueFromName(name)) {
+                showQueue(getQueueFromName(name));
             }
+        }
 
-            // Handle deleting a whole queue
-            function handleDeleteQueue(name) {  
-                // Null throws
-                console.log("Handling delete queue");
-                if(name == null || name == '') {
-                    throw('handleDeleteQueue called with null/empty name');
-                }
-                // Are you sure? Type if so.
-                let promptName = prompt('Do you really want to delete the queue? Type the queue name if so.');
-                if(promptName.trim().toLowerCase() == name.trim().toLowerCase()) {
-                    deleteQueue(name);
-                    showMenu();
-                }
+        // Handle deleting a whole queue
+        function handleDeleteQueue(name) {
+            // Null throws
+            console.log("Handling delete queue");
+            if (name == null || name == '') {
+                throw ('handleDeleteQueue called with null/empty name');
             }
+            // Are you sure? Type if so.
+            let promptName = prompt('Do you really want to delete the queue? Type the queue name if so.');
+            if (promptName.trim().toLowerCase() == name.trim().toLowerCase()) {
+                deleteQueue(name);
+                showMenu();
+            }
+        }
 
-            // Handle delete click from queue
-            function handleDeleteItem(name) {
-                console.log('Trying to delete ' + name);
-                // Are you sure?
-                if(confirm('Do you really want to delete ' + name + ' from the queue?')) {
-                    console.log(getQueueFromName(thisQueueName)); // before
-                    removeFromQueue(thisQueueName, name);
-                    console.log(getQueueFromName(thisQueueName)); // after
-                    populateQueue(getQueueFromName(thisQueueName).data);
-                }
+        // Handle delete click from queue
+        function handleDeleteItem(name) {
+            console.log('Trying to delete ' + name);
+            // Are you sure?
+            if (confirm('Do you really want to delete ' + name + ' from the queue?')) {
+                console.log(getQueueFromName(thisQueueName)); // before
+                removeFromQueue(thisQueueName, name);
+                console.log(getQueueFromName(thisQueueName)); // after
+                populateQueue(getQueueFromName(thisQueueName).data);
             }
+        }
 
-            // Handle Add button from queue
-            function handleAddToQueue(queueName, name, number) {
-                // Verify form content
-                console.log('Handling add to queue');
-                if(queueName == null || !getQueueFromName(queueName) || name == null || number == null) {
-                    throw('Null value or queue, cannot add to queue.');
-                }
-                // TODO: validate phone number
-                addToQueue(queueName, name, number);
-                populateQueue(getQueueFromName(queueName).data);
+        // Handle Add button from queue
+        function handleAddToQueue(queueName, name, number) {
+            // Verify form content
+            console.log('Handling add to queue');
+            if (queueName == null || !getQueueFromName(queueName) || name == null || number == null) {
+                throw ('Null value or queue, cannot add to queue.');
             }
-            
-            // Handle Pull button from queue
-            // Name = the queue name
-            function handlePullFromQueue(queue) {
-                // Check if queue can be pulled from
-                if(getQueueFromName(queue) && getQueueFromName(queue).data) { // Make sure queue & its data exist
-                    if(getQueueFromName(queue).data.length <= 0) {
-                        alert('Cannot pull from an empty queue').
+            const queueData = getQueueFromName(queueName).data;
+            // Check for any other names (maybe don't check because 2 people with same name could join)
+            // for(let item of queueData) {
+            //     if(item.name)
+            // }
+
+            // TODO: validate phone number
+            addToQueue(queueName, name, number);
+            populateQueue(getQueueFromName(queueName).data);
+        }
+
+        // Handle Pull button from queue
+        // Name = the queue name
+        function handlePullFromQueue(queue) {
+            // Check if queue can be pulled from
+            if (getQueueFromName(queue) && getQueueFromName(queue).data) { // Make sure queue & its data exist
+                if (getQueueFromName(queue).data.length <= 0) {
+                    alert('Cannot pull from an empty queue').
                         return;
-                    }
-                }
-                
-                // Are you sure?
-                if(confirm('Do you really want to pull from the queue?')) {
-                    let removedName = removeFromQueue(queue);
-                    populateQueue(getQueueFromName(queue).data);
-                    // alert('Removed ' + removedName + ' from the queue.');
-                    // TODO: change this to a non-alert notification
                 }
             }
-        </script>
-    </body>
+
+            // Are you sure?
+            if (confirm('Do you really want to pull from the queue?')) {
+                let removedName = removeFromQueue(queue);
+                populateQueue(getQueueFromName(queue).data);
+                // alert('Removed ' + removedName + ' from the queue.');
+                // TODO: change this to a non-alert notification
+            }
+        }
+    </script>
+</body>
+
 </html>
