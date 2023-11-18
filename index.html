@@ -16,7 +16,46 @@
 
         const newQueueName = 'New Queue';
         let thisQueueName = '';
-        var queues = [];
+        // var queues = [];
+        const queues = [
+            {
+                "name": "RedHaet",
+                "data": [
+                    {
+                        "name": "Matthew Coffey",
+                        "number": "555-123-4567"
+                    },
+                    {
+                        "name": "Chip Thrasher",
+                        "number": "555-123-4561"
+                    },
+                    {
+                        "name": "Ashley John",
+                        "number": "555-123-4562"
+                    }
+                ]
+            },
+            {
+                "name": "NC State Career Development Center",
+                "data": []
+            },
+            {
+                "name": "NC State Engineer Your Experience",
+                "data": []
+            },
+            {
+                "name": "GE Vernova",
+                "data": []
+            },
+            {
+                "name": "AMD",
+                "data": []
+            },
+            {
+                "name": "NC State Career Development 2",
+                "data": []
+            }
+        ];
 
         //
         // GUI/DOM functions.
@@ -195,32 +234,45 @@
 
         // Add event listeners to queue
         document.addEventListener('DOMContentLoaded', function () {
-            fetch('/data.json')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // Handle the data
-                    console.log(data);
-                    queues = data;
-                    console.log(queues);
+            // Commenting out all the file loading stuff – doesn't work on GH pages.
 
-                    showMenu();
+            // fetch('/data.json')
+            //     .then(response => {
+            //         if (!response.ok) {
+            //             throw new Error('Network response was not ok');
+            //         }
+            //         return response.json();
+            //     })
+            //     .then(data => {
+            //         // Handle the data
+            //         console.log(data);
+            //         queues = data;
+            //         console.log(queues);
 
-                    const header = document.getElementById('header');
-                    header.addEventListener('click', function () {
-                        showMenu();
-                    });
-                })
-                .catch(error => {
-                    // Handle errors
-                    console.error('Error during fetch:', error);
-                });
+            //         showMenu();
+
+            //         const header = document.getElementById('header');
+            //         header.addEventListener('click', function () {
+            //             showMenu();
+            //         });
+            //     })
+            //     .catch(error => {
+            //         // Handle errors
+            //         console.error('Error during fetch:', error);
+            //     });
+
+            showMenu();
+
+            const header = document.getElementById('header');
+            header.addEventListener('click', function () {
+                showMenu();
+            });
         });
 
+        // Save program state to file.
+        function saveState() {
+
+        }
 
         // Add event listeners, after using showMenu().
         function addMenuListeners() {
@@ -310,6 +362,7 @@
             if (promptName.trim().toLowerCase() == name.trim().toLowerCase()) {
                 deleteQueue(name);
                 showMenu();
+                saveState();
             }
         }
 
