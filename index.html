@@ -53,17 +53,23 @@
                 display: flex;
                 justify-content: center;
             }
+            form {
+                background-color: var(--light-gray-color);
+                padding: 1.5em;
+                border-radius: 0.5em;
+            }
             form input {
-                
                 display: block;
                 margin-bottom: 1em;
                 padding: 0.5em;
             }
             form button {
-                width: 100%;
                 display: block;
-                margin-bottom: 1em;
                 padding: 0.5em;
+                width: 100%;
+            }
+            form button:not(:last-child) {
+                margin-bottom: 1em;
             }
             button {
                 background-color: var(--main-color);
@@ -316,7 +322,7 @@
 
             // showMenu();
         
-            showQueue(queues[0]);
+            // showQueue(queues[0]);
         </script>
     </body>
 </html>
