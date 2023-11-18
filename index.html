@@ -4,222 +4,16 @@
         <title>Virtual Queue</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <style>
-            body {
-                --main-color: rgb(254, 44, 44);
-                --opposite-color: white;
-                --gray-color: gray;
-                --light-gray-color: #eee;
-                --dark-gray-color: #444;
-                
-                font-family: "Roboto", sans-serif;
-
-                margin: 0;
-                width: 100%;
-            }
-            #header {
-                background-color: var(--main-color);
-                color: var(--opposite-color);
-
-                font-weight: bold;
-                font-size: 1.5em;
-
-                text-align: center;
-                padding: 1em;
-                cursor: pointer;
-            }
-            #main {
-                padding: 2em;
-            }
-            #main > * {
-                padding-bottom: 1em;
-            }
-            div.description {
-                color: var(--gray-color);
-                text-align: center;
-            }
-            div.menu {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-
-                margin: 0 3em;
-                
-                display: flex;
-                flex-wrap: wrap;
-            }
-            div.menu > button {
-                margin: 0.5em;
-            }
-            div.form {
-                text-align: center;
-                background-color: var(--light-gray-color);
-                margin: 0em auto 1em auto;
-
-                width: min-content;
-                padding: 1.5em;
-                border-radius: 0.5em;
-            }
-            div.form input {
-                display: block;
-                margin-bottom: 1em;
-                padding: 0.5em;
-            }
-            div.form button {
-                display: block;
-                padding: 0.5em;
-                
-            }
-            div.form button:not(:last-child) {
-                margin-bottom: 1em;
-            }
-            button {
-                background-color: var(--main-color);
-                color: var(--opposite-color);
-
-                font-family: inherit;
-                font-size: inherit;
-                font-weight: bold;
-
-                border: 3px solid var(--main-color);
-                border-radius: 0.5em;
-                padding: 1em;
-
-                cursor: pointer;
-            }
-            button.opposite {
-                background-color: var(--opposite-color);
-                color: var(--main-color);
-            }
-            #queue {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                
-            }
-            .item {
-                text-align: left;
-                background-color: var(--light-gray-color);
-                color: var(--dark-gray-color);
-
-                width: auto;
-                margin-bottom: 1em;
-                padding: 1em;
-                border-radius: 0.5em;
-            }
-            .item span {
-                margin-right: 0.5em;
-            }
-            .item span.name {
-                font-weight: bold;
-            }
-            .item span.number {
-                color: var(--gray-color);
-            }
-            .item span.action {
-                color: var(--main-color);
-                font-weight: bold;
-                cursor: pointer;
-            }
-        </style>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <div id="header">Virtual Queue</div>
-        <div id="main">
-            <div class="form">
-                <input type="text" placeholder="Name">
-                <input type="tel" placeholder="Phone number">
-                <button id="add">Add to Queue</button>
-                <button id="pull">Pull from Queue</button>
-            </div>
-            <div class="description">Next in line:</div>
-            <div id="queue">
-                <div class="item" data-name="Matthew Coffey" data-number="555-123-4567">
-                    <span class="name">Matthew Coffey</span>
-                    <span class="number">555-123-4567</span>
-                    <span class="action">Delete</span>
-                </div>
-                <div class="item">
-                    <span class="name">Chip Thrasher</span>
-                    <span class="number">555-123-4561</span>
-                    <span class="action">Delete</span>
-                </div>
-                <div class="item">
-                    <span class="name">Ashley John</span>
-                    <span class="number">555-123-4562</span>
-                    <span class="action">Delete</span>
-                </div>
-                <div class="item">
-                    <span class="name">Jane Steighner</span>
-                    <span class="number">555-123-4563</span>
-                    <span class="action">Delete</span>
-                </div>
-                <div class="item">
-                    <span class="name">Matthew Coffey</span>
-                    <span class="number">555-123-4567</span>
-                    <span class="action">Delete</span>
-                </div>
-                <div class="item">
-                    <span class="name">Chip Thrasher</span>
-                    <span class="number">555-123-4561</span>
-                    <span class="action">Delete</span>
-                </div>
-                <div class="item">
-                    <span class="name">Ashley John</span>
-                    <span class="number">555-123-4562</span>
-                    <span class="action">Delete</span>
-                </div>
-                <div class="item">
-                    <span class="name">Jane Steighner</span>
-                    <span class="number">555-123-4563</span>
-                    <span class="action">Delete</span>
-                </div>
-                <div class="item">
-                    <span class="name">Matthew Coffey</span>
-                    <span class="number">555-123-4567</span>
-                    <span class="action">Delete</span>
-                </div>
-                <div class="item">
-                    <span class="name">Chip Thrasher</span>
-                    <span class="number">555-123-4561</span>
-                    <span class="action">Delete</span>
-                </div>
-                <div class="item">
-                    <span class="name">Ashley John</span>
-                    <span class="number">555-123-4562</span>
-                    <span class="action">Delete</span>
-                </div>
-                <div class="item">
-                    <span class="name">Jane Steighner</span>
-                    <span class="number">555-123-4563</span>
-                    <span class="action">Delete</span>
-                </div>
-                <div class="item">
-                    <span class="name">Matthew Coffey</span>
-                    <span class="number">555-123-4567</span>
-                    <span class="action">Delete</span>
-                </div>
-                <div class="item">
-                    <span class="name">Chip Thrasher</span>
-                    <span class="number">555-123-4561</span>
-                    <span class="action">Delete</span>
-                </div>
-                <div class="item">
-                    <span class="name">Ashley John</span>
-                    <span class="number">555-123-4562</span>
-                    <span class="action">Delete</span>
-                </div>
-                <div class="item">
-                    <span class="name">Jane Steighner</span>
-                    <span class="number">555-123-4563</span>
-                    <span class="action">Delete</span>
-                </div>
-            </div>
-        </div>
+        <div id="main"></div>
         <script>
             // Password check
 
             const newQueueName = 'New Queue';
+            let thisQueueName = '';
             const queues = [
                 { 'name': 'RedHat',
                   'data': [ {
@@ -243,6 +37,10 @@
                 { 'name': 'NC State Career Development 2',
                   'data': [  ] }
             ];
+            
+            //
+            // GUI/DOM functions.
+            //
 
             // Populate #main with the menu screen.
             function showMenu() {
@@ -269,7 +67,7 @@
 
                 main.innerHTML = content;
 
-                // TODO: add event listeners to the menu buttons
+                // Add event listeners
                 addMenuListeners();
             }
 
@@ -278,6 +76,8 @@
                 if(queue == null || queue.name == '') {
                     throw("Trying to populate null/empty queue");
                 }
+
+                thisQueueName = queue.name;
 
                 const header = document.getElementById('header');
                 header.innerHTML = queue.name + '\'s Virtual Queue';
@@ -303,6 +103,8 @@
                 // Populate queue with the selected queue's data            
                 populateQueue(queue.data);
 
+                // Add event listeners
+                addQueueListeners();
             }
 
             // Populate the queue list with data. 
@@ -326,18 +128,33 @@
                 queueElement.innerHTML = content;
             }
         
+            //
+            // Queue manipulation functions. Interacts with data, minimal data validation.
+            //
+        
             // Remove an item from the queue.
-            // Item = a {name, number} object, optional.
+            // Queue = the name of the queue to check
+            // Name = the name to remove, optional
             // Returns the name of the person returned.
-            function removeFromQueue(item) {
-                // If no item, remove the top item of the queue
+            function removeFromQueue(queue, name) {
+                // If no queue, throw an error
 
-                // If item, remove the specified item
+                if(queue == null || queue == '') {
+                    throw('Queue is null or not Object, cannot remove ' + name);
+                }
+                // If no name, remove the top item of the queue
+                if(name == null || name == '') {
+
+                }
+                // If name, remove the specified item
             }
 
             // Add an item to the queue.
-            function addToQueue(name, number) {
-                // Check for duplicates
+            // Queue = the queue to add to
+            // Name = the name to add to queue
+            // Number = the phone number to add to queue
+            function addToQueue(queue, name, number) {
+                // Don't verify, handle() functions worry about that.
             }
 
             // Add a new queue to the list.
@@ -352,18 +169,42 @@
                         validName = false;
                         continue;
                     }
-                    for(let queue of queues) {
-                        if(queue.name.trim().toLowerCase() == name.trim().toLowerCase()) {
-                            // Not valid
-                            console.log('Duplicate queue name detected: ' + name);
-                            validName = false;
-                            break;
-                        }
+                    if(getQueueFromName(name)) {
+                        validName = false;
                     }
                 }
-                queues.push({ 'name': name, 'data': [ {} ] });
+                queues.push({ 'name': name, 'data': [ ] });
                 showMenu();
             }
+
+            // Delete a queue with the specified name.
+            function deleteQueue(name) {
+                // Can't use getQueueFromName, we need an index.
+                for(i = 0; i < queues.length; i++) {
+                    if(queues[i].name.trim().toLowerCase() == name.trim().toLowerCase()) {
+                        console.log('Matching queue name detected: ' + name);
+                        queues.splice(i, 1);
+                        break;
+                    }
+                }
+            }
+
+            // Helper function to get a queue object from its name.
+            function getQueueFromName(name) {
+                if(name == null || name == '') {
+                    throw('Cannot getQueueFromName because name is null or empty');
+                }
+                for(let queue of queues) {
+                    if(queue.name.trim().toLowerCase() == name.trim().toLowerCase()) {
+                        return queue;
+                    }
+                }
+                return null;
+            }
+            
+            //
+            // Main function & event listener setup functions. DOne for each view (menu, queue).
+            //
 
             // Add event listeners to queue
             document.addEventListener('DOMContentLoaded', function() {
@@ -374,6 +215,7 @@
                     showMenu();
                 });
             });
+            
 
             // Add event listeners, after using showMenu().
             function addMenuListeners() {
@@ -391,12 +233,39 @@
 
             // Add event listeners, after using showQueue().
             function addQueueListeners() {
-                // Specific queue view: delete buttons, Back, DeleteQueue, Add & Pull buttons
-                const back = document.querySelector('#back');
-                back.addEventListener('click', function() {
-                    showMenu();
+                // Specific queue view: delete buttons, DeleteQueue, Add & Pull buttons
+                const deleteButton = document.querySelector('#delete');
+                deleteButton.addEventListener('click', function() {
+                    // Find the name of the queue
+                    handleDeleteQueue(thisQueueName);
+                });
+
+                const add = document.querySelector('#add');
+                add.addEventListener('click', function() {
+                    // Find the name of the queue
+
+                    handleAddToQueue(thisQueueName, );
+                });
+
+                const pull = document.querySelector('#pull');
+                pull.addEventListener('click', function() {
+                    // Find the name of the queue
+                    handlePullFromQueue(thisQueueName);
+                });
+
+                const deleteItemButtons = document.querySelectorAll('.action');
+                deleteItemButtons.forEach(function(element) {
+                    // Handle queue selection with the given queue name
+                    let name = element.parentElement.getAttribute('data-name');
+                    element.addEventListener('click', function() {
+                        handleDeleteItem(name);
+                    });
                 });
             }
+
+            //
+            // Specific handler functions. Interact with GUI and provide data validation.
+            //
 
             // Handle queue click from menu. "New Queue" (newQueueName) is an option
             function handleQueueSelection(name) {
@@ -407,29 +276,54 @@
                 if(name == newQueueName) {
                     newQueue();
                 }
-                for(let queue of queues) {
-                    if(queue.name.trim().toLowerCase() == name.trim().toLowerCase()) {
-                        console.log('Matching queue name detected: ' + name);
-                        showQueue(queue);
-                    }
+                if(getQueueFromName(name)) {
+                    showQueue(getQueueFromName(name));
+                }
+            }
+
+            // Handle deleting a whole queue
+            function handleDeleteQueue(name) {  
+                // Null throws
+                console.log("Handling delete queue");
+                if(name == null || name == '') {
+                    throw('handleDeleteQueue called with null/empty name');
+                }
+                // Are you sure? Type if so.
+                let promptName = prompt('Do you really want to delete the queue? Type the queue name if so.');
+                if(promptName.trim().toLowerCase() == name.trim().toLowerCase()) {
+                    deleteQueue(name);
+                    showMenu();
                 }
             }
 
             // Handle delete click from queue
-            function handleDeleteItem() {
+            function handleDeleteItem(name) {
+                console.log('Trying to delete ' + name);
                 // Are you sure?
+                if(confirm('Do you really want to delete ' + name + ' from the queue?')) {
+                    console.log(getQueueFromName(thisQueueName));
+                    removeFromQueue(thisQueueName, name);
+                    console.log(getQueueFromName(thisQueueName));
+                    populateQueue(getQueueFromName(thisQueueName));
+                    alert('Removed ' + name + ' from the queue.');
+                }
             }
 
             // Handle Add button from queue
-            function handleAddToQueue() {
+            function handleAddToQueue(queue, name, number) {
                 // Verify form content
+                console.log("Handling add to queue");
+                addToQueue(queue, name, number);
             }
             
             // Handle Pull button from queue
-            function handlePullFromQueue() {
+            // Name = the queue name
+            function handlePullFromQueue(queue) {
+                // Check if queue can be pulled from
+                
                 // Are you sure?
                 if(confirm('Do you really want to pull from the queue?')) {
-                    let removedName = removeFromQueue();
+                    let removedName = removeFromQueue(queue);
                     populateQueue();
                     alert('Removed ' + removedName + ' from the queue.');
                 }

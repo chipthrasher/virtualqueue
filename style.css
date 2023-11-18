@@ -1,0 +1,116 @@
+body {
+    --main-color: rgb(254, 44, 44);
+    --opposite-color: white;
+    --gray-color: gray;
+    --light-gray-color: #eee;
+    --dark-gray-color: #444;
+    
+    font-family: "Roboto", sans-serif;
+
+    margin: 0;
+    width: 100%;
+}
+#header {
+    background-color: var(--main-color);
+    color: var(--opposite-color);
+
+    font-weight: bold;
+    font-size: 1.5em;
+
+    text-align: center;
+    padding: 1em;
+    cursor: pointer;
+}
+#main {
+    padding: 2em;
+}
+#main > * {
+    padding-bottom: 1em;
+}
+div.description {
+    color: var(--gray-color);
+    text-align: center;
+}
+div.menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: 0 3em;
+    
+    display: flex;
+    flex-wrap: wrap;
+}
+div.menu > button {
+    margin: 0.5em;
+}
+div.form {
+    text-align: center;
+    background-color: var(--light-gray-color);
+    margin: 0em auto 1em auto;
+
+    width: min-content;
+    padding: 1.5em;
+    border-radius: 0.5em;
+}
+div.form input {
+    display: block;
+    margin-bottom: 1em;
+    padding: 0.5em;
+}
+div.form button {
+    display: block;
+    padding: 0.5em;
+    
+}
+div.form button:not(:last-child) {
+    margin-bottom: 1em;
+}
+button {
+    background-color: var(--main-color);
+    color: var(--opposite-color);
+
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: bold;
+
+    border: 3px solid var(--main-color);
+    border-radius: 0.5em;
+    padding: 1em;
+
+    cursor: pointer;
+}
+button.opposite {
+    background-color: var(--opposite-color);
+    color: var(--main-color);
+}
+#queue {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+.item {
+    text-align: left;
+    background-color: var(--light-gray-color);
+    color: var(--dark-gray-color);
+
+    width: auto;
+    margin-bottom: 1em;
+    padding: 1em;
+    border-radius: 0.5em;
+}
+.item span {
+    margin-right: 0.5em;
+}
+.item span.name {
+    font-weight: bold;
+}
+.item span.number {
+    color: var(--gray-color);
+}
+.item span.action {
+    color: var(--main-color);
+    font-weight: bold;
+    cursor: pointer;
+}
