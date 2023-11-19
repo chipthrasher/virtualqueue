@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="style.css">
 </head>
-
+ 
 <body>
     <div id="header">Virtual Queue</div>
     <div id="main"></div>
@@ -16,43 +16,125 @@
 
         const newQueueName = 'New Queue';
         let thisQueueName = '';
+        const isDemo = true; // Shows a disclaimer message on the menu.
+        const demoMessage = 'This is a demo of VirtualQueue. Authentication, phone number validation, and file I/O are disabled.<br><a href="https://github.com/chipthrasher/virtualqueue/#readme">Learn more about VirtualQueue.</a>';
+        
+        // Commenting out all the file loading stuff – doesn't work on GH pages.
         // var queues = [];
+
         const queues = [
             {
-                "name": "RedHaet",
+                "name": "Company A",
                 "data": [
                     {
-                        "name": "Matthew Coffey",
+                        "name": "Malik A",
+                        "number": "555-456-7890"
+                    },
+                    {
+                        "name": "Alex B",
+                        "number": "555-567-8901"
+                    },
+                    {
+                        "name": "Mei C",
+                        "number": "555-678-9012"
+                    },
+                    {
+                        "name": "Aisha D",
+                        "number": "555-789-0123"
+                    },
+                    {
+                        "name": "Diego E",
+                        "number": "555-890-1234"
+                    },
+                    {
+                        "name": "Matthew F",
+                        "number": "555-901-2345"
+                    },
+                    {
+                        "name": "Jamal G",
+                        "number": "555-012-3456"
+                    },
+                    {
+                        "name": "Sanaa H",
                         "number": "555-123-4567"
                     },
                     {
-                        "name": "Chip Thrasher",
-                        "number": "555-123-4561"
+                        "name": "Lorem I",
+                        "number": "555-234-5678"
                     },
                     {
-                        "name": "Ashley John",
-                        "number": "555-123-4562"
+                        "name": "James J",
+                        "number": "555-345-6789"
                     }
                 ]
             },
             {
-                "name": "NC State Career Development Center",
+                "name": "Company B",
+                "data": [
+                    {
+                        "name": "Malik A",
+                        "number": "555-456-7890"
+                    },
+                    {
+                        "name": "Alex B",
+                        "number": "555-567-8901"
+                    },
+                    {
+                        "name": "Mei C",
+                        "number": "555-678-9012"
+                    },
+                    {
+                        "name": "Aisha D",
+                        "number": "555-789-0123"
+                    },
+                    {
+                        "name": "Diego E",
+                        "number": "555-890-1234"
+                    }
+                ]
+            },
+            {
+                "name": "Company C",
                 "data": []
             },
             {
-                "name": "NC State Engineer Your Experience",
+                "name": "Company D",
                 "data": []
             },
             {
-                "name": "GE Vernova",
+                "name": "Company E",
                 "data": []
             },
             {
-                "name": "AMD",
+                "name": "Company F",
                 "data": []
             },
             {
-                "name": "NC State Career Development 2",
+                "name": "Company G",
+                "data": []
+            },
+            {
+                "name": "Company H",
+                "data": []
+            },
+            {
+                "name": "Company I",
+                "data": []
+            },
+            {
+                "name": "Company J",
+                "data": []
+            },
+            {
+                "name": "Company K",
+                "data": []
+            },
+            {
+                "name": "Company L",
+                "data": []
+            },
+            {
+                "name": "Company M",
                 "data": []
             }
         ];
@@ -76,13 +158,15 @@
             content += '<div class="menu" id="queues">';
 
             for (let queue of queues) {
-                // console.log('Queue name: ' + queue.name);
-
                 content += '<button class="queue">' + queue.name + '</button>';
             }
 
             content += '</div>'; // End first menu
             content += '<div class="menu"><button class="queue opposite">' + newQueueName + '</button></div>'; // Second menu
+
+            if(isDemo) {
+                content += '<div class="description">' + demoMessage + '</div>'
+            }
 
             main.innerHTML = content;
 
@@ -133,8 +217,6 @@
                 let thisName = queue[i].name;
                 let thisNumber = queue[i].number;
 
-                console.log(thisName, thisNumber);
-
                 content += `<div class="item" data-name="${thisName}" data-number="${thisNumber}">`;
                 content += `<span class="name">${thisName}</span>`;
                 content += `<span class="number">${thisNumber}</span>`;
@@ -167,7 +249,7 @@
             } else {
                 for (let i = 0; i < queueData.length; i++) {
                     if (queueData[i].name == name) {
-                        console.log('Found the one to remove');
+                        // console.log('Found the one to remove');
                         queueData.splice(i, 1);
                     }
                 }
@@ -261,25 +343,28 @@
             //         console.error('Error during fetch:', error);
             //     });
 
+            addHeaderListeners();
             showMenu();
-
-            const header = document.getElementById('header');
-            header.addEventListener('click', function () {
-                showMenu();
-            });
         });
 
         // Save program state to file.
         function saveState() {
+            // Unimplemented in this demo of VirtualQueue.
+        }
 
+        // Add event listeners to the header. Should only be run once
+        function addHeaderListeners() {
+            const header = document.getElementById('header');
+
+            header.addEventListener('click', function () {
+                showMenu();
+            });
         }
 
         // Add event listeners, after using showMenu().
         function addMenuListeners() {
             // First remove listeners
-            const header = document.getElementById('header');
             const main = document.getElementById('main');
-            header.outerHTML = header.outerHTML;
             main.outerHTML = main.outerHTML;
 
             // console.log('Adding menu listeners');
@@ -338,7 +423,7 @@
 
         // Handle queue click from menu. "New Queue" (newQueueName) is an option
         function handleQueueSelection(name) {
-            console.log('Click detected on ' + name + ', running handleQueueSelection');
+            // console.log('Click detected on ' + name + ', running handleQueueSelection');
             if (name == null || name == '') {
                 throw ('handleQueueSelection called with null/empty name');
             }
@@ -353,7 +438,7 @@
         // Handle deleting a whole queue
         function handleDeleteQueue(name) {
             // Null throws
-            console.log("Handling delete queue");
+            // console.log("Handling delete queue");
             if (name == null || name == '') {
                 throw ('handleDeleteQueue called with null/empty name');
             }
@@ -368,12 +453,12 @@
 
         // Handle delete click from queue
         function handleDeleteItem(name) {
-            console.log('Trying to delete ' + name);
+            // console.log('Trying to delete ' + name);
             // Are you sure?
             if (confirm('Do you really want to delete ' + name + ' from the queue?')) {
-                console.log(getQueueFromName(thisQueueName)); // before
+                // console.log(getQueueFromName(thisQueueName)); // before
                 removeFromQueue(thisQueueName, name);
-                console.log(getQueueFromName(thisQueueName)); // after
+                // console.log(getQueueFromName(thisQueueName)); // after
                 populateQueue(getQueueFromName(thisQueueName).data);
             }
         }
@@ -381,7 +466,7 @@
         // Handle Add button from queue
         function handleAddToQueue(queueName, name, number) {
             // Verify form content
-            console.log('Handling add to queue');
+            // console.log('Handling add to queue');
             if (queueName == null || !getQueueFromName(queueName) || name == null || number == null) {
                 throw ('Null value or queue, cannot add to queue.');
             }
@@ -402,7 +487,7 @@
             // Check if queue can be pulled from
             if (getQueueFromName(queue) && getQueueFromName(queue).data) { // Make sure queue & its data exist
                 if (getQueueFromName(queue).data.length <= 0) {
-                    alert('Cannot pull from an empty queue').
+                    alert('Cannot pull from an empty queue.').
                         return;
                 }
             }
@@ -417,5 +502,4 @@
         }
     </script>
 </body>
-
 </html>

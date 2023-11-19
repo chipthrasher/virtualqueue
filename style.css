@@ -10,6 +10,10 @@ body {
     margin: 0;
     width: 100%;
 }
+a {
+    text-decoration: underline;
+    color: inherit;
+}
 #header {
     background-color: var(--main-color);
     color: var(--opposite-color);
@@ -30,6 +34,7 @@ body {
 div.description {
     color: var(--gray-color);
     text-align: center;
+    line-height: 1.5;
 }
 div.menu {
     display: flex;
