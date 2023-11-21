@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Virtual Queue</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div id="header">Virtual Queue</div>
     <div id="main"></div>
+    <div id="notification-stack"></div>
     <script src="dom.js"></script>
     <script src="queue.js"></script>
     <script src="handlers.js"></script>
     <script>
         // Not in demo: password check
 
+        // Config
         const newQueueName = 'New Queue';
         let thisQueueName = '';
+        const notificationTimeout = 5;
         const isDemo = true; // Shows a disclaimer message on the menu.
         const demoMessage = 'This is a demo of VirtualQueue. Authentication, phone number validation, and file I/O are disabled.<br><a href="https://github.com/chipthrasher/virtualqueue/#readme">Learn more about VirtualQueue.</a>';
 
@@ -144,4 +149,5 @@
         });
     </script>
 </body>
+
 </html>

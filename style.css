@@ -4,16 +4,18 @@ body {
     --gray-color: gray;
     --light-gray-color: #eee;
     --dark-gray-color: #444;
-    
+
     font-family: "Roboto", sans-serif;
 
     margin: 0;
     width: 100%;
 }
+
 a {
     text-decoration: underline;
     color: inherit;
 }
+
 #header {
     background-color: var(--main-color);
     color: var(--opposite-color);
@@ -25,30 +27,36 @@ a {
     padding: 1em;
     cursor: pointer;
 }
+
 #main {
     padding: 2em;
 }
-#main > * {
+
+#main>* {
     padding-bottom: 1em;
 }
-div.description {
+
+.description {
     color: var(--gray-color);
     text-align: center;
     line-height: 1.5;
 }
+
 div.menu {
     display: flex;
     justify-content: center;
     align-items: center;
 
     margin: 0 3em;
-    
+
     display: flex;
     flex-wrap: wrap;
 }
-div.menu > button {
+
+div.menu>button {
     margin: 0.5em;
 }
+
 div.form {
     text-align: center;
     background-color: var(--light-gray-color);
@@ -58,19 +66,23 @@ div.form {
     padding: 1.5em;
     border-radius: 0.5em;
 }
+
 div.form input {
     display: block;
     margin-bottom: 1em;
     padding: 0.5em;
 }
+
 div.form button {
     display: block;
     padding: 0.5em;
-    
+
 }
+
 div.form button:not(:last-child) {
     margin-bottom: 1em;
 }
+
 button {
     background-color: var(--main-color);
     color: var(--opposite-color);
@@ -85,16 +97,19 @@ button {
 
     cursor: pointer;
 }
+
 button.opposite {
     background-color: var(--opposite-color);
     color: var(--main-color);
 }
+
 #queue {
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+
 }
+
 .item {
     text-align: left;
     background-color: var(--light-gray-color);
@@ -105,17 +120,48 @@ button.opposite {
     padding: 1em;
     border-radius: 0.5em;
 }
+
 .item span {
     margin-right: 0.5em;
 }
+
 .item span.name {
     font-weight: bold;
 }
+
 .item span.number {
     color: var(--gray-color);
 }
+
 .item span.action {
     color: var(--main-color);
     font-weight: bold;
     cursor: pointer;
+}
+
+#notification-stack {
+    position: fixed;
+    bottom: 2em;
+    left: 2em;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Shrink notifications to only the size they need  */
+}
+
+.notification {
+    display: block;
+    background-color: var(--main-color);
+    color: var(--opposite-color);
+    padding: 0.75em;
+    margin-top: 0.75em;
+    border-radius: 0.25em;
+}
+
+.close-btn {
+    cursor: pointer;
+    margin-left: 0.75em;
+    font-weight: bold;
+    color: var(--opposite-color);
+    opacity: 0.5;
 }

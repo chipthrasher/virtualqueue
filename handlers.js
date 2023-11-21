@@ -1,7 +1,6 @@
 // Add event listeners to the header. Should only be run once
 function addHeaderListeners() {
     const header = document.getElementById('header');
-
     header.addEventListener('click', function () {
         showMenu();
     });
@@ -13,13 +12,12 @@ function addMenuListeners() {
     const main = document.getElementById('main');
     main.outerHTML = main.outerHTML;
 
-    // console.log('Adding menu listeners');
-    // Menu: queue buttons & New Queue button
+    // Select a Queue buttons, including New Queue
     const queueElements = document.querySelectorAll('.queue');
     queueElements.forEach(function (element) {
-        // Handle queue selection with the given queue name
         let name = element.innerHTML;
         element.addEventListener('click', function () {
+            // handleQueueSelection handles "New Queue" itself.
             handleQueueSelection(name);
         });
     });
@@ -31,28 +29,31 @@ function addQueueListeners() {
     const main = document.getElementById('main');
     main.outerHTML = main.outerHTML;
 
-    // Specific queue view: delete buttons, DeleteQueue, Add & Pull buttons
+    // Delete Queue button
     const deleteButton = document.querySelector('#delete');
     deleteButton.addEventListener('click', function () {
         // Find the name of the queue
         handleDeleteQueue(thisQueueName);
     });
 
+    // Add to Queue button
     const add = document.querySelector('#add');
     add.addEventListener('click', function () {
-        // Find the name of the queue
+        // Get form values
         const name = document.getElementById('name').value;
         const number = document.getElementById('number').value;
 
         handleAddToQueue(thisQueueName, name, number);
     });
 
+    // Pull from Queue button
     const pull = document.querySelector('#pull');
     pull.addEventListener('click', function () {
         // Find the name of the queue
         handlePullFromQueue(thisQueueName);
     });
 
+    // Delete button for specific queue items
     const deleteItemButtons = document.querySelectorAll('.action');
     deleteItemButtons.forEach(function (element) {
         // Handle queue selection with the given queue name
@@ -74,8 +75,26 @@ function handleQueueSelection(name) {
         throw ('handleQueueSelection called with null/empty name');
     }
     if (name == newQueueName) {
-        newQueue();
+        // They clicked New Queue, start the process of making a new queue.
+        let newName = '', validName = false;
+        while (newName != null && validName == false) {
+            newName = prompt('Name for the new queue:');
+            validName = true;
+    
+            if (newName.trim() == '') {
+                validName = false;
+                // showNotification('Cannot make queue with empty name.');
+                continue;
+            }
+            if (getQueueFromName(newName)) {
+                // showNotification('A queue with that name already exists.');
+                validName = false;
+            }
+        }
+        // validName is true if this code is reached.
+        newQueue(newName);
         showMenu();
+        showNotification('New queue <strong>' + newName + '</strong> created.');
     }
     if (getQueueFromName(name)) {
         showQueue(getQueueFromName(name));
@@ -94,7 +113,7 @@ function handleDeleteQueue(name) {
     if (promptName.trim().toLowerCase() == name.trim().toLowerCase()) {
         deleteQueue(name);
         showMenu();
-        saveState();
+        showNotification('Deleted queue <strong>' + name + '</strong>.');
     }
 }
 
@@ -107,6 +126,7 @@ function handleDeleteItem(name) {
         removeFromQueue(thisQueueName, name);
         // console.log(getQueueFromName(thisQueueName)); // after
         populateQueue(getQueueFromName(thisQueueName).data);
+        showNotification('Deleted <strong>' + name + '</strong> from the queue.');
     }
 }
 
@@ -126,6 +146,7 @@ function handleAddToQueue(queueName, name, number) {
     // TODO: validate phone number
     addToQueue(queueName, name, number);
     populateQueue(getQueueFromName(queueName).data);
+    showNotification('Added <strong>' + name + '</strong> to the queue.');
 }
 
 // Handle Pull button from queue
@@ -134,8 +155,8 @@ function handlePullFromQueue(queue) {
     // Check if queue can be pulled from
     if (getQueueFromName(queue) && getQueueFromName(queue).data) { // Make sure queue & its data exist
         if (getQueueFromName(queue).data.length <= 0) {
-            alert('Cannot pull from an empty queue.').
-                return;
+            showNotification('Cannot pull from an empty queue.');
+            return;
         }
     }
 
@@ -143,7 +164,6 @@ function handlePullFromQueue(queue) {
     if (confirm('Do you really want to pull from the queue?')) {
         let removedName = removeFromQueue(queue);
         populateQueue(getQueueFromName(queue).data);
-        // alert('Removed ' + removedName + ' from the queue.');
-        // TODO: change this to a non-alert notification
+        showNotification('Pulled <strong>' + removedName + '</strong> from the queue.');
     }
 }
