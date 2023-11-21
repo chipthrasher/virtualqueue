@@ -29,6 +29,12 @@ function addQueueListeners() {
     const main = document.getElementById('main');
     main.outerHTML = main.outerHTML;
 
+    // Back button
+    const backButton = document.querySelector('#back');
+    backButton.addEventListener('click', function () {
+        showMenu();
+    });
+
     // Delete Queue button
     const deleteButton = document.querySelector('#delete');
     deleteButton.addEventListener('click', function () {

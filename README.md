@@ -11,5 +11,3 @@ Todo:
 - Integration with Twilio SMS API
 - Server-run web application supporting HTTP requests, so you can read/write from files
 - Phone number verification
-- More obvious home/back button
-- Fill out Company A-M with experimental data

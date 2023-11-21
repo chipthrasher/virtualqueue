@@ -38,12 +38,16 @@ function showQueue(queue) {
     if (queue == null || queue.name == '') {
         throw ('Trying to populate null/empty queue');
     }
-
+    
+    // Define the content of the back button
+    const backButtonContent = '< Back to Menu';
+    
     thisQueueName = queue.name;
 
+    // Update 
     const header = document.getElementById('header');
-    header.innerHTML = queue.name + '\'s Virtual Queue';
-    document.title = queue.name + '\'s Virtual Queue';
+    header.innerHTML = thisQueueName + '\'s Virtual Queue';
+    document.title = thisQueueName + '\'s Virtual Queue';
 
     // Clear #main
     const main = document.getElementById('main');
@@ -51,6 +55,8 @@ function showQueue(queue) {
 
     // Form (name, phone number, add button, pull button)
     let content = '';
+
+    content += '<div class="description"><button class="opposite" id="back">' + backButtonContent + '</button></div>'
 
     content += '<div class="form"><input type="text" id="name" placeholder="Name"><input type="tel" id="number" placeholder="Phone number">'
     content += '<button id="add">Add to Queue</button><button id="pull">Pull from Queue</button><button id="delete" class="opposite">Delete Queue</button></div>';
