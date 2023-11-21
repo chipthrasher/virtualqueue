@@ -16,18 +16,19 @@
     <script src="queue.js"></script>
     <script src="handlers.js"></script>
     <script>
-        // Not in demo: password check
-
         // Config
+
         const newQueueName = 'New Queue';
         let thisQueueName = '';
         const notificationTimeout = 5;
         const isDemo = true; // Shows a disclaimer message on the menu.
         const demoMessage = 'This is a demo of VirtualQueue. Authentication, phone number validation, and file I/O are disabled.<br><a href="https://github.com/chipthrasher/virtualqueue/#readme">Learn more about VirtualQueue.</a>';
 
+        // Not in demo: password check
+
         const queues = [
             {
-                "name": "Company A",
+                "name": "Example Queue",
                 "data": [
                     {
                         "name": "Malik A",
@@ -72,16 +73,21 @@
                 ]
             },
             {
-                "name": "Company B",
+                "name": "Example Empty Queue",
+                "data": []
+            },
+            {
+                "name": "IBM",
                 "data": [
                     {
                         "name": "Malik A",
                         "number": "555-456-7890"
-                    },
-                    {
-                        "name": "Alex B",
-                        "number": "555-567-8901"
-                    },
+                    }
+                ]
+            },
+            {
+                "name": "RedHat",
+                "data": [
                     {
                         "name": "Mei C",
                         "number": "555-678-9012"
@@ -93,53 +99,30 @@
                     {
                         "name": "Diego E",
                         "number": "555-890-1234"
+                    },
+                    {
+                        "name": "Sanaa H",
+                        "number": "555-123-4567"
+                    },
+                    {
+                        "name": "Lorem I",
+                        "number": "555-234-5678"
                     }
                 ]
             },
             {
-                "name": "Company C",
-                "data": []
+                "name": "Caterpillar",
+                "data": [
+                    {
+                        "name": "Lorem I",
+                        "number": "555-234-5678"
+                    },
+                    {
+                        "name": "James J",
+                        "number": "555-345-6789"
+                    }
+                ]
             },
-            {
-                "name": "Company D",
-                "data": []
-            },
-            {
-                "name": "Company E",
-                "data": []
-            },
-            {
-                "name": "Company F",
-                "data": []
-            },
-            {
-                "name": "Company G",
-                "data": []
-            },
-            {
-                "name": "Company H",
-                "data": []
-            },
-            {
-                "name": "Company I",
-                "data": []
-            },
-            {
-                "name": "Company J",
-                "data": []
-            },
-            {
-                "name": "Company K",
-                "data": []
-            },
-            {
-                "name": "Company L",
-                "data": []
-            },
-            {
-                "name": "Company M",
-                "data": []
-            }
         ];
 
         // Main function
