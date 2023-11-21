@@ -42,8 +42,8 @@ function addToQueue(queueName, name, number) {
 // Name = the name of the queue to create.
 // This assumes duplicate checking has already happened.
 function newQueue(name) {
-    if(name == null || name.trim() == '') {
-        throw('Cannot create queue with null/empty name.');
+    if (name == null || name.trim() == '') {
+        throw ('Cannot create queue with null/empty name.');
     }
     queues.push({ 'name': name, 'data': [] });
     return name;
